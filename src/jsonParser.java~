@@ -12,8 +12,8 @@ import com.google.gson.Gson;
 
 public class jsonParser {	
     public static void main(String[] ignored) throws Exception {
-    	//int count = 1;
-    	  /*
+    	int count = 1;
+    	  
         URL url;
          
         
@@ -21,31 +21,31 @@ public class jsonParser {
         
         url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&titles=Bla_Bla_Bla&prop=extracts&explaintext");
       InputStreamReader reader = new InputStreamReader(url.openStream());
-      Test info = gson.fromJson(reader, Test.class);
+      JsonReader info = gson.fromJson(reader, MatchInfo.class);
         
       	//System.out.println(reader);
-        System.out.println(info.a);
-        */
+        System.out.println(info.extract);
         
-        Gson gson = new Gson();
+    	
         
-       // String dataIn = "{\"a\" : \"hello\", \"b\" : {\"b1\" : \"test\"}}";
-       // System.out.println(dataIn);
+        //matchInfo2
         
-        //Test info = gson.fromJson(dataIn, Test.class);
-        
-        //System.out.println(info.a);
-        InnerObj I = new InnerObj("hi", 10);
-        
-        TestObj t = new TestObj("jo", 3, I);
-  
-        String jsonOut = gson.toJson(t);
-        System.out.println(jsonOut);
-        
-        
-        TestObj test2 = gson.fromJson(jsonOut, TestObj.class);
-        
-        System.out.println(test2.a3.b2);
     }
+
+    private class MatchInfo {
+        String extract;
+        
+    }
+    /*
+    private class result{
+    	String red1;
+    	String red2;
+    	String blue1;
+    	String blue2;
+    	int redscore;
+    	int bluescore;
+    	
+    }*/
     
+
 }
