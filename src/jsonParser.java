@@ -15,11 +15,13 @@ public class jsonParser {
     	int count = 1;
     	int increment = 5000;
     	
-    	int end = 20000;  
+    	int end = 5000;  
     	
         URL url;
         
         Gson gson = new Gson();
+        
+        Data outData = new Data();
     	
     	
     	for(; count < end; count += increment){
@@ -38,13 +40,15 @@ public class jsonParser {
     			Ranking b1 = gson.fromJson(new InputStreamReader(b1URL.openStream()), Ranking.class);
     			Ranking b2 = gson.fromJson(new InputStreamReader(b2URL.openStream()), Ranking.class);
     			
-    			
-    			
+    			outData.size++;
+    			outData.matchteam.add(new MatchTeamData(m.getRedScore(i), m.getBlueScore(i), copyReduce(r1), copyReduce(r2), copyReduce(b1), copyReduce(b2)));
     		}
-    		//System.out.println(m.getBlue1());
-    		
-    		
+    		//System.out.println(m.getBlue1());   		
     	}
+    	
+    	String outDataStr = gson.toJson(outData);
+    	
+    	System.out.println(outDataStr);
     	
     	System.out.println("done");
     	
@@ -79,6 +83,11 @@ public class jsonParser {
         //Match test2 = gson.fromJson(m, Match.class);
         
         //System.out.println(test2.result.get(0).red2);
+    }
+    
+    public static Rank copyReduce(Ranking r){
+    	Rank rOut = new Rank(r.avgRank(), r.avgWins(), r.avgLosses(), r.avgTies(), r.avgwp(), r.avgap(), r.avgsp(), r.avgtrsp(), r.avgmscore(), r.avgopr(), r.avgdpr(), r.avgccwm());
+    	return rOut;
     }
     
 }
