@@ -1,6 +1,8 @@
 public class MatchTeamData{
 	int redscore;
 	int bluescore;
+	int redwin;
+	int bluewin;
 	
 	Rank red1ranking;
 	Rank red2ranking;
@@ -14,5 +16,16 @@ public class MatchTeamData{
 		this.red2ranking = r2;
 		this.blue1ranking = b1;
 		this.blue2ranking = b2;
+		
+		if(rscore > bscore){
+			this.redwin = 1;
+			this.bluewin = 0;
+		} else if (rscore < bscore){
+			this.redwin = 0;
+			this.bluewin = 1;
+		} else {
+			this.redwin = 0;
+			this.bluewin = 0;
+		}
 	}
 }
