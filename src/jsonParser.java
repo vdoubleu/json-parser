@@ -22,6 +22,7 @@ public class jsonParser {
         Gson gson = new Gson();
         
         Data outData = new Data();
+        DataFrame frame = new DataFrame();
     	
     	
     	for(; count < end; count += increment){
@@ -42,47 +43,31 @@ public class jsonParser {
     			
     			outData.size++;
     			outData.matchteam.add(new MatchTeamData(m.getRedScore(i), m.getBlueScore(i), copyReduce(r1), copyReduce(r2), copyReduce(b1), copyReduce(b2)));
-    		}
-    		//System.out.println(m.getBlue1());   		
+    		}  		
     	}
     	
-    	String outDataStr = gson.toJson(outData);
+    	//transform into data frame object
+    	for(int i = 0; i < outData.size; i++){
+    		frame.addRow(outData.matchteam.get(i).redscore, 
+    				outData.matchteam.get(i).bluescore, 
+    				outData.matchteam.get(i).redwin,
+    				outData.matchteam.get(i).bluewin,
+    				outData.matchteam.get(i).red1ranking,
+    				outData.matchteam.get(i).red2ranking,
+    				outData.matchteam.get(i).blue1ranking,
+    				outData.matchteam.get(i).blue2ranking);
+    	}
     	
-    	System.out.println(outDataStr);
+    	String outFrame = gson.toJson(frame);
+    	System.out.println(outFrame);
+    	
+    	//*************************************
+    	//String outDataStr = gson.toJson(outData);
+    	//System.out.println(outDataStr);
+    	//*************************************
     	
     	System.out.println("done");
     	
-
-    	/*
-
-        url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&titles=Bla_Bla_Bla&prop=extracts&explaintext");
-      InputStreamReader reader = new InputStreamReader(url.openStream());
-      Test info = gson.fromJson(reader, Test.class);
-        
-      	//System.out.println(reader);
-        System.out.println(info.a);
-        */
-        
-        //Gson gson = new Gson();
-        
-       // String dataIn = "{\"a\" : \"hello\", \"b\" : {\"b1\" : \"test\"}}";
-       // System.out.println(dataIn);
-        
-        //Test info = gson.fromJson(dataIn, Test.class);
-        
-        //System.out.println(info.a);
-        //InnerObj I = new InnerObj("hi", 10);
-        
-        //TestObj t = new TestObj("jo", 3, I, "yup", 69);
-  
-        //String jsonOut = gson.toJson(t);
-        //System.out.println(jsonOut);
-        
-        //String m = "{\"status\":1,\"size\":1,\"result\":[{\"sku\":\"RE-VRC-19-8207\",\"division\":\"Division 1\",\"round\":2,\"instance\":1,\"matchnum\":1,\"field\":\"Main Field\",\"red1\":\"56847A\",\"red2\":\"98626A\",\"red3\":\"\",\"redsit\":\"\",\"blue1\":\"98626B\",\"blue2\":\"10622D\",\"blue3\":\"\",\"bluesit\":\"\",\"redscore\":6,\"bluescore\":19,\"scored\":1,\"scheduled\":\"2019-10-26T16:00:00+00:00\"}]}";
-        
-        //Match test2 = gson.fromJson(m, Match.class);
-        
-        //System.out.println(test2.result.get(0).red2);
     }
     
     public static Rank copyReduce(Ranking r){

@@ -1,1 +1,5 @@
 /bin/
+*.java.un~
+*.java~
+.classpath
+.project
