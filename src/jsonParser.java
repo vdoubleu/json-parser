@@ -1,11 +1,6 @@
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
+import java.io.*;
 import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.file.*;
 
 import com.google.gson.Gson;
 
@@ -59,7 +54,10 @@ public class jsonParser {
     	
     	String outFrame = gson.toJson(frame);
     	System.out.println(outFrame);
-    	
+
+    	//over write existing data insert new data
+    	writeToFile(outFrame, "./src/data.txt");
+
     	//*************************************
     	//String outDataStr = gson.toJson(outData);
     	//System.out.println(outDataStr);
@@ -72,6 +70,14 @@ public class jsonParser {
     public static Rank copyReduce(Ranking r){
     	Rank rOut = new Rank(r.avgRank(), r.avgWins(), r.avgLosses(), r.avgTies(), r.avgwp(), r.avgap(), r.avgsp(), r.avgtrsp(), r.avgmscore(), r.avgopr(), r.avgdpr(), r.avgccwm());
     	return rOut;
+    }
+    
+    public static void writeToFile(String data, String fileLoc) {
+        try {
+            Files.write(Paths.get(fileLoc), data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }
