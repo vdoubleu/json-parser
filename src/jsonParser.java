@@ -19,8 +19,8 @@ public class jsonParser {
         DataFrame frame = new DataFrame();
     	
     	
-    	for(; count < end; count += increment){//limit number 200, remove during use
-    		url = new URL("https://api.vexdb.io/v1/get_matches?limit_number=200&limit_start=" + count);
+    	for(; count < end; count += increment){
+    		url = new URL("https://api.vexdb.io/v1/get_matches?&limit_start=" + count);
     		InputStreamReader reader = new InputStreamReader(url.openStream());
     		Match m = gson.fromJson(reader, Match.class);
     		
