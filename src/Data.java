@@ -6,5 +6,6 @@ public class Data {
 	
 	public Data(){
 		this.size = 0;
+		matchteam = new ArrayList<MatchTeamData>();
 	}
 }

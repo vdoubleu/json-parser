@@ -19,12 +19,14 @@ public class jsonParser {
         DataFrame frame = new DataFrame();
     	
     	
-    	for(; count < end; count += increment){
-    		url = new URL("https://api.vexdb.io/v1/get_matches?limit_start=" + count);
+    	for(; count < end; count += increment){//limit number 200, remove during use
+    		url = new URL("https://api.vexdb.io/v1/get_matches?limit_number=200&limit_start=" + count);
     		InputStreamReader reader = new InputStreamReader(url.openStream());
     		Match m = gson.fromJson(reader, Match.class);
     		
     		for(int i = 0; i < m.size; i++){
+    			System.out.println(i);
+    			
     			URL r1URL = new URL("https://api.vexdb.io/v1/get_rankings?team=" + m.getRed1(i));
     			URL r2URL = new URL("https://api.vexdb.io/v1/get_rankings?team=" + m.getRed2(i));
     			URL b1URL = new URL("https://api.vexdb.io/v1/get_rankings?team=" + m.getBlue1(i));
